@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#F7EEE5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="BabySteps" />
+  <meta name="description" content="BabySteps — Two-way to-do for parents and kids (ages 2–7). Works offline." />
+
+  <title>BabySteps — Two-way To-do</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Peralta&family=Lakki+Reddy&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Kirang+Haerang&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="lab-header">
+    <span class="dot"></span> BabySteps
+    <small>· two-way to-do · PWA v1</small>
+  </div>
+
+  <main id="app" class="app-stage">
+    <div class="device-wrap">
+      <div class="ios-device" id="ios-device">
+        <div class="dynamic-island"></div>
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <div class="status-icons">
+            <svg width="19" height="12" viewBox="0 0 19 12" aria-hidden="true"><rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7"/><rect x="4.8" y="5" width="3.2" height="7" rx="0.7"/><rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7"/><rect x="14.4" y="0" width="3.2" height="12" rx="0.7"/></svg>
+            <svg width="17" height="12" viewBox="0 0 17 12" aria-hidden="true"><path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z"/><path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z"/><circle cx="8.5" cy="10.5" r="1.5"/></svg>
+            <svg width="27" height="13" viewBox="0 0 27 13" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke="currentColor" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="20" height="9" rx="2"/><path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill-opacity="0.4"/></svg>
+          </div>
+        </div>
+
+        <div class="device-screen" id="screen"></div>
+
+        <div class="home-indicator" aria-hidden="true"><span></span></div>
+      </div>
+
+      <div class="route-chip" id="route-chip">splash</div>
+    </div>
+  </main>
+
+  <!-- Tweaks panel -->
+  <aside class="tweaks-panel" id="tweaks-panel" aria-label="Tweaks">
+    <button class="tweaks-toggle" id="tweaks-toggle" aria-label="Open tweaks">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+
+    <div class="tweaks-body" id="tweaks-body">
+      <h3>Tweaks</h3>
+
+      <section>
+        <h4>View</h4>
+        <label class="tw-toggle">
+          <span>Jump to Kid POV</span>
+          <input type="checkbox" id="tw-kidview" />
+          <span class="switch"></span>
+        </label>
+      </section>
+
+      <section>
+        <h4>Theme</h4>
+        <div class="tw-radio" data-key="themeBg">
+          <button data-val="cream">cream</button>
+          <button data-val="light">light</button>
+          <button data-val="mint">mint</button>
+          <button data-val="sky">sky</button>
+        </div>
+        <div class="tw-colors" data-key="accent">
+          <button data-val="#A36565" style="background:#A36565"></button>
+          <button data-val="#5A6899" style="background:#5A6899"></button>
+          <button data-val="#5F8B4D" style="background:#5F8B4D"></button>
+          <button data-val="#C77FBE" style="background:#C77FBE"></button>
+        </div>
+      </section>
+
+      <section>
+        <h4>Type</h4>
+        <input type="range" id="tw-fontscale" min="0.85" max="1.2" step="0.05" value="1" />
+        <output id="tw-fontscale-val">1.00×</output>
+      </section>
+
+      <section>
+        <h4>Mascot</h4>
+        <label class="tw-toggle">
+          <span>Show Piffy</span>
+          <input type="checkbox" id="tw-mascot" checked />
+          <span class="switch"></span>
+        </label>
+      </section>
+
+      <section>
+        <h4>Data</h4>
+        <button class="tw-action" id="tw-reset">Reset all data</button>
+      </section>
+    </div>
+  </aside>
+
+  <!-- Order matters: data → components → screens → app -->
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/screens.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

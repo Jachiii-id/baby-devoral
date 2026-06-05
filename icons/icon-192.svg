@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="40" fill="#F7EEE5"/>
+  <path d="M96 18 L116 78 L180 82 L132 122 L148 184 L96 152 L44 184 L60 122 L12 82 L76 78 Z" fill="#FFF1C1" stroke="#12012A" stroke-width="5" stroke-linejoin="round"/>
+  <text x="96" y="120" text-anchor="middle" font-family="Peralta, serif" font-size="40" fill="#12012A" letter-spacing="-1">BS</text>
+</svg>
