@@ -230,6 +230,7 @@ const App = {
       case 'task':   el = renderTaskPlay(this); break;
       case 'reward': el = renderReward(this); break;
       case 'adv':    el = renderAdventure(this); break;
+      case 'advmap': el = renderAdventureMap(this); break;
       case 'smart':  el = renderSmartiez(this); break;
       default:       el = renderSplash(this);
     }
@@ -264,6 +265,7 @@ function routeLabel(r) {
     task: 'kid · task',
     reward: 'kid · reward',
     adv: 'kid · adventure',
+    advmap: 'kid · map',
     smart: 'kid · smartiez',
   })[r] || r;
 }

@@ -184,6 +184,13 @@ const COPY = {
     todayLabel: "Today's adventure",
     begin: 'Begin',
   },
+  advmap: {
+    crumb: 'your map',
+    hint: 'Tap a quest pin to begin ✨',
+    allDone: 'All quests done — yay!',
+    empty: 'No quests yet. Ask a grown-up to add some.',
+    note: 'Today the map shows',
+  },
   smartiez: {
     crumb: 'smartiez',
     eyebrow: 'Learn with us~',

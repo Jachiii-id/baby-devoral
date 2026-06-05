@@ -560,7 +560,7 @@ function renderAdventure(app) {
       h('div', { class: 'title' }, [adv]),
       PrimaryButton({
         text: C.adventure.begin, size: 'md', color: T.c.cobalt,
-        onClick: () => app.go('kid'), style: { marginTop: '12px' },
+        onClick: () => app.go('advmap'), style: { marginTop: '12px' },
       }),
     ]),
   ]);
@@ -597,10 +597,89 @@ function renderSmartiez(app) {
   ]);
 }
 
+/* =====================================================
+   11. Adventure Map — pins quest tasks on a fantasy map.
+   Reached from Adventure → Begin.
+   ===================================================== */
+function renderAdventureMap(app) {
+  const childTasks = app.tasks[app.activeChild] || [];
+  const open = childTasks.filter(t => !t.done);
+  const child = app.activeChildObj() || app.children[0];
+
+  // Pre-baked positions arranged along the grass plateau.
+  // Coordinates are % of the map-stage container.
+  const SLOTS = [
+    { left: '22%', top: '50%', rotate: -4 },
+    { left: '50%', top: '44%', rotate: 2 },
+    { left: '74%', top: '50%', rotate: -2 },
+    { left: '36%', top: '60%', rotate: 3 },
+    { left: '60%', top: '62%', rotate: -3 },
+    { left: '48%', top: '70%', rotate: 1 },
+  ];
+
+  const pins = open.slice(0, SLOTS.length).map((task, i) => {
+    const slot = SLOTS[i];
+    return h('button', {
+      class: 'quest-pin',
+      style: { left: slot.left, top: slot.top, transform: `translate(-50%,-100%) rotate(${slot.rotate}deg)` },
+      onClick: () => app.playTask(task.id),
+    }, [
+      h('span', { class: 'pin-card' }, [
+        h('span', { class: 'pin-star' }, [Star({ size: 16, color: T.c.yellowDeep })]),
+        h('span', { class: 'pin-title' }, [task.title]),
+        h('span', { class: 'pin-stars' },
+          Array.from({ length: task.stars }, () => Star({ size: 10 }))),
+      ]),
+      h('span', { class: 'pin-stem' }),
+      h('span', { class: 'pin-dot' }),
+    ]);
+  });
+
+  const allDone = childTasks.length > 0 && open.length === 0;
+  const empty = childTasks.length === 0;
+
+  return h('div', { class: 'screen scr-advmap' }, [
+    AdventureMapScene(),
+
+    h('div', { class: 'topbar' }, [
+      IconBtn({ icon: Icons.back(), light: true, onClick: () => app.go('adv') }),
+      h('span', { class: 'lbl' }, [C.advmap.crumb]),
+      h('div', { style: { flex: 1 } }),
+      h('div', { class: 'mini-stars' }, [
+        Star({ size: 16, color: T.c.yellowDeep }),
+        h('span', {}, [String(child?.stars ?? 0)]),
+      ]),
+    ]),
+
+    h('div', { class: 'advmap-head' }, [
+      h('div', { class: 'eyebrow' }, [C.advmap.note]),
+      h('h1', {}, [`${open.length} ${open.length === 1 ? 'quest' : 'quests'} to find`]),
+    ]),
+
+    h('div', { class: 'map-stage' }, [
+      ...pins,
+      (empty || allDone)
+        ? h('div', { class: 'map-banner' }, [empty ? C.advmap.empty : C.advmap.allDone])
+        : null,
+    ]),
+
+    h('div', { class: 'map-foot' }, [
+      h('div', { class: 'foot-bubble' }, [
+        app.tweaks.showMascot ? Piffy({ size: 56 }) : null,
+        h('span', {}, [
+          empty ? C.advmap.empty
+            : allDone ? C.advmap.allDone
+            : C.advmap.hint,
+        ]),
+      ]),
+    ]),
+  ]);
+}
+
 /* expose */
 Object.assign(window, {
   renderSplash, renderRole, renderLogin,
   renderParentHome, renderAddSheet,
   renderKidHome, renderTaskPlay, renderReward,
-  renderAdventure, renderSmartiez,
+  renderAdventure, renderSmartiez, renderAdventureMap,
 });

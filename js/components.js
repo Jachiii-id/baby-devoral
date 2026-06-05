@@ -188,9 +188,170 @@ function BigDoor() {
   ]);
 }
 
+/* =====================================================
+   Adventure Map scene — fantasy floating-island SVG.
+   Sky gradient + sun + clouds + birds + mountains +
+   diorama with grass / trees / mushrooms / river.
+   ===================================================== */
+function AdventureMapScene() {
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('class', 'map-scene');
+  svg.setAttribute('viewBox', '0 0 430 780');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  svg.innerHTML = `
+    <defs>
+      <radialGradient id="sun-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#FFEBC0" stop-opacity="0.95"/>
+        <stop offset="55%"  stop-color="#FFD9A0" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#FFD9A0" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#FCE9D5"/>
+        <stop offset="45%"  stop-color="#F4E9DA"/>
+        <stop offset="100%" stop-color="#EDE3D0" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#CFE3F4" stop-opacity="0.6"/>
+      </linearGradient>
+      <linearGradient id="mtn" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#FFFFFF"/>
+        <stop offset="60%" stop-color="#CFE0F0"/>
+        <stop offset="100%" stop-color="#9FB7D0"/>
+      </linearGradient>
+      <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#B4DA8E"/>
+        <stop offset="100%" stop-color="#8AC56C"/>
+      </linearGradient>
+      <linearGradient id="dirt" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#C49A6B"/>
+        <stop offset="100%" stop-color="#8B6443"/>
+      </linearGradient>
+      <linearGradient id="river" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#BFE2F5"/>
+        <stop offset="100%" stop-color="#6FA9D8"/>
+      </linearGradient>
+    </defs>
+
+    <!-- sky tint -->
+    <rect width="430" height="780" fill="url(#sky)"/>
+
+    <!-- sun glow -->
+    <circle cx="120" cy="170" r="130" fill="url(#sun-glow)"/>
+    <circle cx="120" cy="170" r="55"  fill="#F6D49B" opacity="0.85"/>
+    <circle cx="120" cy="170" r="40"  fill="#FBE4B7"/>
+
+    <!-- birds (top right) -->
+    <g fill="none" stroke="#5C5C66" stroke-width="2.4" stroke-linecap="round" opacity="0.75">
+      <path d="M270 160 q8 -7 16 0 q8 -7 16 0"/>
+      <path d="M310 180 q6 -5 12 0 q6 -5 12 0"/>
+      <path d="M298 200 q5 -4 10 0 q5 -4 10 0"/>
+    </g>
+
+    <!-- mountains back -->
+    <g>
+      <path d="M250 360 L320 240 L360 320 L390 280 L430 360 Z" fill="url(#mtn)" opacity="0.85"/>
+      <path d="M310 245 L320 240 L335 270 L325 270 Z" fill="#FFFFFF" opacity="0.9"/>
+      <path d="M380 290 L390 280 L405 310 L395 310 Z" fill="#FFFFFF" opacity="0.9"/>
+    </g>
+
+    <!-- clouds -->
+    <g fill="url(#cloud)" stroke="#D9E7F1" stroke-width="1">
+      <path d="M30 260 q14 -22 38 -16 q12 -18 36 -8 q22 -6 32 12 q18 4 16 22 q-58 6 -120 0 q-8 -8 -2 -10z" opacity="0.9"/>
+      <path d="M250 300 q14 -20 38 -14 q14 -16 34 -6 q22 -4 30 14 q18 4 14 22 q-58 6 -116 -2 q-6 -6 0 -14z" opacity="0.85"/>
+    </g>
+
+    <!-- river falling off the island -->
+    <g>
+      <path d="M280 470 q -10 30 0 60 q 4 35 -22 70 q -8 35 8 70 l 18 0 q -4 -40 4 -70 q 14 -35 8 -70 q -2 -30 14 -60 z"
+            fill="url(#river)" opacity="0.85"/>
+      <path d="M286 540 q4 12 -2 30 q-2 14 4 28" stroke="#FFFFFF" stroke-width="1.2" fill="none" opacity="0.6"/>
+    </g>
+
+    <!-- dirt underside (stalactite-ish) -->
+    <path d="M55 460
+             L375 440
+             L385 510
+             L355 545
+             L320 535
+             L290 565
+             L260 540
+             L220 575
+             L190 545
+             L155 575
+             L120 540
+             L85 565
+             L60 525 Z"
+          fill="url(#dirt)"/>
+
+    <!-- grass top (parallelogram with rounded feel) -->
+    <path d="M70 410
+             Q60 400 80 395
+             L360 375
+             Q385 372 380 395
+             L375 470
+             Q380 482 355 482
+             L80 478
+             Q56 478 60 458
+             Z"
+          fill="url(#grass)" stroke="#5E8B41" stroke-width="1.4"/>
+
+    <!-- white pebbles along front edge -->
+    <g fill="#FAF5EC" opacity="0.95">
+      <circle cx="95"  cy="476" r="3.6"/>
+      <circle cx="125" cy="478" r="3"/>
+      <circle cx="160" cy="476" r="3.8"/>
+      <circle cx="200" cy="477" r="3"/>
+      <circle cx="240" cy="476" r="3.6"/>
+      <circle cx="285" cy="475" r="3.2"/>
+      <circle cx="325" cy="474" r="3.6"/>
+    </g>
+
+    <!-- mushrooms (left side cluster) -->
+    <g>
+      <ellipse cx="105" cy="445" rx="11" ry="7" fill="#D86A6A"/>
+      <path d="M100 445 L100 458 L110 458 L110 445 Z" fill="#F6E7C7"/>
+      <circle cx="101" cy="442" r="2.2" fill="#FAF5EC"/>
+      <circle cx="108" cy="446" r="1.6" fill="#FAF5EC"/>
+      <ellipse cx="128" cy="452" rx="8" ry="5" fill="#E48B5A"/>
+      <path d="M124 452 L124 462 L132 462 L132 452 Z" fill="#F6E7C7"/>
+    </g>
+
+    <!-- trees (cluster around middle) -->
+    <g>
+      <ellipse cx="195" cy="430" rx="34" ry="20" fill="#79B45D"/>
+      <ellipse cx="180" cy="420" rx="20" ry="14" fill="#9AD17F"/>
+      <ellipse cx="215" cy="425" rx="22" ry="14" fill="#6EA453"/>
+      <ellipse cx="200" cy="416" rx="18" ry="12" fill="#A8DC8C"/>
+    </g>
+
+    <!-- back hill silhouette on the grass -->
+    <path d="M250 390 Q300 360 360 388 L360 410 L250 410 Z" fill="#A8DC8C" opacity="0.7"/>
+
+    <!-- tiny red flowers -->
+    <g fill="#D86A6A">
+      <circle cx="252" cy="455" r="2.4"/>
+      <circle cx="305" cy="462" r="2.2"/>
+      <circle cx="335" cy="455" r="2.4"/>
+    </g>
+    <g fill="#FFE082">
+      <circle cx="252" cy="455" r="0.9"/>
+      <circle cx="305" cy="462" r="0.9"/>
+      <circle cx="335" cy="455" r="0.9"/>
+    </g>
+
+    <!-- small back star on the grass -->
+    <path d="M275 392 l3 6 l7 .4 l-5 4 l1.6 6.6 l-6.6 -3.6 l-6.6 3.6 l1.6 -6.6 l-5 -4 l7 -.4 z"
+          fill="#FFD167" stroke="#C58B2E" stroke-width="0.8"/>
+  `;
+  return svg;
+}
+
 /* expose */
 Object.assign(window, {
   h, Star, Piffy, BgPattern,
   PrimaryButton, SoftButton, IconBtn, PillInput,
   Icons, AdventureDoor, SmartieArt, BigDoor,
+  AdventureMapScene,
 });
