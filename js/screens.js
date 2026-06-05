@@ -81,24 +81,28 @@ function renderLogin(app) {
   const tagBg = isKid ? T.c.mint : T.c.pink;
   const blobBg = isKid ? T.c.lilac : T.c.paper;
 
-  const nameInput = PillInput({
-    placeholder: C.login.namePh,
-    iconSvg: svgIcon('<circle cx="10" cy="6" r="4" fill="currentColor"/><path d="M2 18c0-4 4-7 8-7s8 3 8 7" fill="currentColor"/>'),
-  });
-  const pwInput = PillInput({
-    placeholder: C.login.pwPh, type: 'password',
-    iconSvg: svgIcon('<rect x="3" y="9" width="14" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 9V6a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="2"/>'),
-  });
+  const userIcon = () => svgIcon('<circle cx="10" cy="6" r="4" fill="currentColor"/><path d="M2 18c0-4 4-7 8-7s8 3 8 7" fill="currentColor"/>');
+  const lockIcon = () => svgIcon('<rect x="3" y="9" width="14" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 9V6a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="2"/>');
+  const cakeIcon = () => svgIcon('<rect x="3" y="5" width="14" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 8h14M7 3v4M13 3v4" fill="none" stroke="currentColor" stroke-width="2"/>');
+
+  // Build a label+input pair
+  const field = (label, input) =>
+    h('div', { class: 'field' }, [
+      h('label', { class: 'field-cap' }, [label]),
+      input,
+    ]);
+
+  const nameInput = PillInput({ placeholder: C.login.namePh, iconSvg: userIcon() });
+  const pwInput   = PillInput({ placeholder: C.login.pwPh, type: 'password', iconSvg: lockIcon() });
 
   const row2 = isKid
-    ? h('div', { class: 'row-2' }, [
-        PillInput({ placeholder: C.login.bdayPh,
-          iconSvg: svgIcon('<rect x="3" y="5" width="14" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 8h14M7 3v4M13 3v4" fill="none" stroke="currentColor" stroke-width="2"/>') }),
-        PillInput({ placeholder: C.login.agePh }),
+    ? h('div', { class: 'field-row' }, [
+        field('Birthday', PillInput({ placeholder: C.login.bdayPh, iconSvg: cakeIcon() })),
+        field('Age',      PillInput({ placeholder: C.login.agePh })),
       ])
-    : h('div', { class: 'row-2' }, [
-        PillInput({ placeholder: C.login.childNamePh }),
-        PillInput({ placeholder: C.login.agePh }),
+    : h('div', { class: 'field-row' }, [
+        field('Child name', PillInput({ placeholder: C.login.childNamePh })),
+        field('Age',        PillInput({ placeholder: C.login.agePh })),
       ]);
 
   const submit = () => {
@@ -115,21 +119,25 @@ function renderLogin(app) {
     ]),
 
     h('div', { class: 'login-card' }, [
-      h('div', { style: { textAlign: 'center', marginBottom: '8px' } }, [
+      h('div', { class: 'login-title' }, [
         h('h1', {}, [C.login.title]),
-        h('div', { class: 'role-tag', style: { background: tagBg, display: 'inline-block' } }, [
+        h('div', { class: 'role-tag', style: { background: tagBg } }, [
           isKid ? 'Kid' : 'Parent',
         ]),
       ]),
-      nameInput,
-      pwInput,
-      row2,
-      h('div', { style: { flex: 1 } }),
-      PrimaryButton({
-        text: C.login.cta, color: accent, onClick: submit,
-        style: { alignSelf: 'center', marginTop: '8px' },
-      }),
-      h('button', { class: 'change-role', onClick: () => app.go('role') }, [C.login.back]),
+
+      h('div', { class: 'fields' }, [
+        field(isKid ? 'Your name' : 'Your name', nameInput),
+        field('Password', pwInput),
+        row2,
+      ]),
+
+      h('div', { class: 'login-foot' }, [
+        PrimaryButton({
+          text: C.login.cta, color: accent, onClick: submit, full: true,
+        }),
+        h('button', { class: 'change-role', onClick: () => app.go('role') }, [C.login.back]),
+      ]),
     ]),
   ]);
 }

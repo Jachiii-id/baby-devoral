@@ -177,7 +177,13 @@ const App = {
   bindTweaksPanel() {
     const panel = document.getElementById('tweaks-panel');
     const toggle = document.getElementById('tweaks-toggle');
-    toggle.addEventListener('click', () => panel.classList.toggle('open'));
+    const closeBtn = document.getElementById('tweaks-close');
+    toggle.addEventListener('click', () => panel.classList.add('open'));
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+    // Esc key also closes
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') panel.classList.remove('open');
+    });
 
     document.getElementById('tw-kidview').addEventListener('change', (e) =>
       this.setTweak('kidView', e.target.checked));
